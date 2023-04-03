@@ -2,17 +2,26 @@
 
 module Text
   class Content
-    attr_accessor :content, :lang
+    attr_accessor :text, :lang
 
-    def initialize(content:)
-      @content = content
+    def initialize(text:)
+      @text = prepare(text)
+      @lang = detect_language
+    end
 
-      detect_language
+    def paragraphs
+      @paragraphs ||= text.gsub(/\R{2,}/, "\n").split(/\R/).map(&:strip)
+    end
+
+    private
+
+    def prepare(text)
+      text.gsub(/[[:blank:]]{2,}/, ' ')
     end
 
     def detect_language
-      detected = CLD.detect_language(content)
-      @lang = detected[:reliable] ? detected[:code] : 'en'
+      detected = CLD.detect_language(text)
+      detected[:reliable] ? detected[:code] : 'en'
     end
   end
 end
