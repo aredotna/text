@@ -11,3 +11,22 @@ AllCops:
 #
 Layout/LineLength:
   Max: 120
+
+#
+# *** Metrics
+#
+
+Metrics/BlockLength:
+  Max: 191
+  Exclude:
+    - spec/**/*
+
+#
+# *** Style
+#
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+

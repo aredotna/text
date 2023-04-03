@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'text'
+require 'awesome_print'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -12,4 +13,9 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.profile_examples = 3
+
+  config.order = :random
+  Kernel.srand config.seed
 end

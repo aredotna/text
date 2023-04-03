@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
-require_relative 'text/version'
+require 'cld'
+require 'zeitwerk'
+
+loader = Zeitwerk::Loader.for_gem
+loader.setup
 
 module Text
   class Error < StandardError; end
-  # Your code goes here...
 end
