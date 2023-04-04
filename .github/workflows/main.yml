@@ -8,20 +8,32 @@ on:
   pull_request:
 
 jobs:
-  build:
+  # pre-spec
+  #
+  rubocop:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+      - name: Run rubocop
+        run: bundle exec rubocop --parallel --format progress
+
+  specs:
+    runs-on: ubuntu-latest
+    needs: ['rubocop']
     strategy:
       matrix:
-        ruby:
-          - '3.2.2'
+        ruby-version: ['3.0', '3.1', '3.2', head]
 
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ matrix.ruby }}
+        ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+    - name: Run rspec
+      run: bundle exec rspec
