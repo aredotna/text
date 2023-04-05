@@ -4,6 +4,8 @@ module Text
   class Content
     attr_accessor :text, :lang
 
+    # Public: initialize it
+    # text - the text to be precessed
     def initialize(text:)
       @text = prepare(text)
       @lang = detect_language
