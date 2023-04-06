@@ -145,5 +145,53 @@ RSpec.describe Text::Content do
       end
     end
   end
+
+  describe '#filtered' do
+    subject { described_class.new(text: text).filtered }
+
+    describe 'short' do
+      let(:text) do
+        'Technical roadmap: OpenSearch extensibility
+
+          Wed, Apr 05, 2023 · Daniel (dB.) Doubrovkine
+          The primary reason users choose OpenSearch is the wide range of use cases they can address with its features, such as search or log analytics. Thus, we aim to make the OpenSearch Project the preferred platform for builders by creating a vibrant and deeply integrated ecosystem of projects, features, content packs, integrations, and tools that can be found quickly, installed securely, combined to solve problems, and monetized by many participants.'
+      end
+
+      specify do
+        expect { subject }.not_to raise_error
+      end
+    end
+
+    describe 'long' do
+      let(:text) do
+        'Processes
+
+          Speedup through multiple CPUs
+          Speedup for blocking operations
+          Variables are protected from change
+          Extra memory used
+          Child processes are killed when your main process is killed through Ctrl+c or kill -2
+          Threads
+
+          Speedup for blocking operations
+          Variables can be shared/modified
+          No extra memory used
+          Ractors
+
+          Ruby 3.0+ only
+          Speedup for blocking operations
+          No extra memory used
+          Very fast to spawn
+          Experimental and unstable
+          start and finish hooks are called on main thread
+          Variables must be passed in Parallel.map([1,2,3].map { |i| [i, ARGV, local_var] }, ...
+          use Ractor.make_shareable to pass in global objects'
+      end
+
+      specify do
+        expect { subject }.not_to raise_error
+      end
+    end
+  end
 end
 # rubocop:enable Layout/LineLength
