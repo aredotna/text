@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Text
+module Texter
   class Stopwords
     #
     # class methods
@@ -22,7 +22,7 @@ module Text
     # lang - a String, the ISO code of a language is required
     # list - an Array of Strings, replacing the default local list of words
     def initialize(lang:, list: [])
-      raise Text::Error, 'missing lang' if lang.to_s.empty?
+      raise Texter::Error, 'missing lang' if lang.to_s.empty?
 
       @lang = lang
       @stopwords = list.empty? ? self.class.dictionary[lang] : list.map(&:downcase)

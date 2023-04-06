@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Text
+module Texter
   class Content
     attr_accessor :text, :lang
 
@@ -24,7 +24,7 @@ module Text
         Parallel.each(grouped_paragraphs, in_threads: count) do |sections|
           memo[sections.keys.first] = []
           sections.values.first.compact.each do |section|
-            memo[sections.keys.first] << Text::Stopwords.new(lang: lang).filtered(section)
+            memo[sections.keys.first] << Texter::Stopwords.new(lang: lang).filtered(section)
           end
         end
         memo.values.flatten.join("\n")

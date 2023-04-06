@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Layout/LineLength
-RSpec.describe Text::Stopwords do
+RSpec.describe Texter::Stopwords do
   describe '.dictionary' do
     subject { described_class.dictionary }
 
@@ -15,11 +15,11 @@ RSpec.describe Text::Stopwords do
   describe '.new' do
     describe 'lang missing' do
       specify do
-        expect { described_class.new(lang: '') }.to raise_error Text::Error, 'missing lang'
+        expect { described_class.new(lang: '') }.to raise_error Texter::Error, 'missing lang'
       end
 
       specify do
-        expect { described_class.new(lang: nil) }.to raise_error Text::Error, 'missing lang'
+        expect { described_class.new(lang: nil) }.to raise_error Texter::Error, 'missing lang'
       end
     end
 

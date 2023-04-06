@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Layout/LineLength
-RSpec.describe Text::Content do
+RSpec.describe Texter::Content do
   describe '.new' do
     describe 'raises an error if content missing' do
       subject { described_class.new }

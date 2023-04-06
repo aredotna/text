@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    text (0.1.0)
+    texter (0.1.0)
       activesupport (>= 6, < 8)
       cld
       parallel
@@ -86,7 +86,7 @@ DEPENDENCIES
   rspec (~> 3.12)
   rubocop (~> 1.48)
   rubocop-rspec
-  text!
+  texter!
 
 BUNDLED WITH
    2.4.10

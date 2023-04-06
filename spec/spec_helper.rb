@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'text'
+require 'texter'
 require 'awesome_print'
 
 RSpec.configure do |config|
