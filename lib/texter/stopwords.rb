@@ -22,7 +22,7 @@ module Texter
     # lang - a String, the ISO code of a language is required
     # list - an Array of Strings, replacing the default local list of words
     def initialize(lang:, list: [])
-      raise Texter::Error, 'missing lang' if lang.to_s.empty?
+      raise Texter::Error, 'missing lang' if lang.blank?
 
       @lang = lang
       @stopwords = list.empty? ? self.class.dictionary[lang] : list.map(&:downcase)
@@ -30,7 +30,7 @@ module Texter
 
     def filtered(text)
       @filtered ||= begin
-        splitted = text.split.map { |w| w.gsub(/[[:punct:]]$/, '').gsub(/[\[\]()]*/, '') }
+        splitted = text.split.map { |w| w.gsub(/[[:punct:]]$/, '').gsub(/[\[\]{}()]*/, '') }
 
         splitted.reject { |w| stopwords.include?(w.downcase) }.join(' ')
       end
