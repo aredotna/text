@@ -15,7 +15,6 @@ Layout/LineLength:
 #
 # *** Metrics
 #
-
 Metrics/BlockLength:
   Max: 191
   Exclude:

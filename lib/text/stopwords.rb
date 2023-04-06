@@ -30,7 +30,7 @@ module Text
 
     def filtered(text)
       @filtered ||= begin
-        splitted = text.split.map { |w| w.gsub(/[[:punct:]]$/, '') }
+        splitted = text.split.map { |w| w.gsub(/[[:punct:]]$/, '').gsub(/[\[\]()]*/, '') }
 
         splitted.reject { |w| stopwords.include?(w.downcase) }.join(' ')
       end
