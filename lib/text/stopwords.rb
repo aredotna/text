@@ -16,14 +16,24 @@ module Text
     # instance methods
     #
     attr_accessor :stopwords
+    attr_reader :lang
 
     # Public: initialize it
     # lang - a String, the ISO code of a language is required
-    # list - an Array of words, replacing the default local list
-    def initialize(lang:, _list: [])
+    # list - an Array of Strings, replacing the default local list of words
+    def initialize(lang:, list: [])
       raise Text::Error, 'missing lang' if lang.to_s.empty?
 
-      @stopwords = self.class.dictionary[lang]
+      @lang = lang
+      @stopwords = list.empty? ? self.class.dictionary[lang] : list.map(&:downcase)
+    end
+
+    def filtered(text)
+      @filtered ||= begin
+        splitted = text.split.map { |w| w.gsub(/[[:punct:]]$/, '') }
+
+        splitted.reject { |w| stopwords.include?(w.downcase) }.join(' ')
+      end
     end
   end
 end
