@@ -191,6 +191,7 @@ RSpec.describe Texter::Content do
       specify do
         expect { subject }.not_to raise_error
         expect(subject.length).to be < text.length
+        expect(subject).to be_a String
       end
     end
   end

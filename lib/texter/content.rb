@@ -11,27 +11,16 @@ module Texter
       @lang = detect_language
     end
 
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
     def filtered
       @filtered ||= begin
-        memo = {}
-        count = paragraphs.size < 8 ? 2 : 8
+        count = paragraphs.size < 8 ? 2 : 4
         grouped_paragraphs = paragraphs.in_groups(count)
-                                       .each_with_index
-                                       .with_object([]) { |(c, index), m| m << { index => c } }
-
-        Parallel.each(grouped_paragraphs, in_threads: count) do |sections|
-          memo[sections.keys.first] = []
-          sections.values.first.compact.each do |section|
-            memo[sections.keys.first] << Texter::Stopwords.new(lang: lang).filtered(section)
-          end
+        memo = Parallel.map(grouped_paragraphs, in_processes: count) do |sections|
+          Texter::Stopwords.new(lang: lang).filtered(sections.join("\n\n"))
         end
-        memo.values.flatten.join("\n")
+        memo.flatten.join("\n\n")
       end
     end
-    # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/AbcSize
 
     def paragraphs
       @paragraphs ||= text.gsub(/\R{2,}/, "\n").split(/\R/).map(&:strip)
