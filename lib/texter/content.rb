@@ -12,10 +12,14 @@ module Texter
     end
 
     def filtered
-      @filtered ||= begin
-        count = paragraphs.size < 8 ? 2 : 4
+      @filtered ||= Texter::Stopwords.new(lang: lang).filtered(text)
+    end
+
+    def parallel_filtered
+      @parallel_filtered ||= begin
+        count = paragraphs.size < 16 ? 2 : 4
         grouped_paragraphs = paragraphs.in_groups(count)
-        memo = Parallel.map(grouped_paragraphs, in_processes: count) do |sections|
+        memo = Parallel.map(grouped_paragraphs, in_threads: count) do |sections|
           Texter::Stopwords.new(lang: lang).filtered(sections.join("\n\n"))
         end
         memo.flatten.join("\n\n")
