@@ -195,5 +195,18 @@ RSpec.describe Texter::Content do
       end
     end
   end
+
+  describe 'issue: undefined method `include?`' do
+    subject { described_class.new(text: text) }
+
+    let(:text) do
+      "#Overriding Wooden from Ripikazudetzuratzu!\n\n"
+    end
+
+    specify do
+      expect(subject.text).to eql '#Overriding Wooden from Ripikazudetzuratzu!'
+      expect(subject.lang).to eql 'eu'
+    end
+  end
 end
 # rubocop:enable Layout/LineLength

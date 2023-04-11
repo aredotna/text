@@ -29,6 +29,8 @@ module Texter
     end
 
     def filtered(text)
+      return text unless stopwords
+
       @filtered ||= begin
         splitted = text.split.map { |w| w.gsub(/[[:punct:]]$/, '').gsub(/[\[\]{}()]*/, '') }
 

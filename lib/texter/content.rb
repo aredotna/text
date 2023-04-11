@@ -33,7 +33,7 @@ module Texter
     private
 
     def prepare(text)
-      text.gsub(/[[:blank:]]{2,}/, ' ')
+      text.gsub(/[[:blank:]]{2,}/, ' ').strip
     end
 
     def detect_language
