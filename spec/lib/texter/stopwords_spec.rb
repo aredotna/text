@@ -84,9 +84,22 @@ RSpec.describe Texter::Stopwords do
         '내 디자인에서 색상을 탐색한 후 무지개를 구현하는 것이 정말 어렵다는 것을 깨달았기 덜 선택했습니다'
       end
       specify do
-        p subject
         expect(subject).to eql expected
       end
+    end
+  end
+
+  # no predefined stopword list found
+  describe 'issue: undefined method `include?`' do
+    subject { described_class.new(lang: lang).filtered(text) }
+
+    let(:lang) { 'eu' }
+    let(:text) do
+      "#Overriding Wooden from Ripikazudetzuratzu!\n\n"
+    end
+
+    specify do
+      expect(subject).to eql text
     end
   end
 end
