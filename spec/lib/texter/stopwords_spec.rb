@@ -45,7 +45,7 @@ RSpec.describe Texter::Stopwords do
   end
 
   describe '#filter -> removes punctation and stopwords' do
-    subject { described_class.new(lang: lang).filtered(text) }
+    subject { described_class.new(lang: lang, text: text).filtered }
 
     describe 'english' do
       let(:lang) { 'en' }
@@ -91,7 +91,7 @@ RSpec.describe Texter::Stopwords do
 
   # no predefined stopword list found
   describe 'issue: undefined method `include?`' do
-    subject { described_class.new(lang: lang).filtered(text) }
+    subject { described_class.new(lang: lang, text: text).filtered }
 
     let(:lang) { 'eu' }
     let(:text) do

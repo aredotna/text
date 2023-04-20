@@ -786,9 +786,9 @@ RSpec.describe Texter::Content do
     ]
   end
 
-  let(:count) { 10 }
+  let(:count) { 100 }
 
-  describe 'Stopwords' do
+  xdescribe 'Stopwords' do
     describe 'single filtered' do
       specify do
         Benchmark.bmbm(10) do |x|
@@ -796,14 +796,6 @@ RSpec.describe Texter::Content do
             count.times do
               contents.each do |text|
                 Texter::Content.new(text: text).filtered
-              end
-            end
-          end
-
-          x.report('parallel: ') do
-            count.times do
-              contents.each do |text|
-                Texter::Content.new(text: text).parallel_filtered
               end
             end
           end

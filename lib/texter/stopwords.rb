@@ -16,26 +16,27 @@ module Texter
     # instance methods
     #
     attr_accessor :stopwords
-    attr_reader :lang
+    attr_reader :lang, :text
 
     # Public: initialize it
     # lang - a String, the ISO code of a language is required
     # list - an Array of Strings, replacing the default local list of words
-    def initialize(lang:, list: [])
+    def initialize(lang:, text: '', list: [])
       raise Texter::Error, 'missing lang' if lang.blank?
 
       @lang = lang
+      @text = text
       @stopwords = list.empty? ? self.class.dictionary[lang] : list.map(&:downcase)
     end
 
-    def filtered(text)
+    def filtered
       return text unless stopwords
 
-      @filtered ||= begin
-        splitted = text.split.map { |w| w.gsub(/[[:punct:]]$/, '').gsub(/[\[\]{}()]*/, '') }
+      @filtered ||= splitted.reject { |w| stopwords.include?(w.downcase) }.join(' ')
+    end
 
-        splitted.reject { |w| stopwords.include?(w.downcase) }.join(' ')
-      end
+    def splitted
+      @splitted ||= @text.split.map { |w| w.gsub(/[[:punct:]]$/, '').gsub(/[\[\]{}()]*/, '') }
     end
   end
 end
