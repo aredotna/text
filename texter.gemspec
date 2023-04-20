@@ -33,7 +33,6 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_dependency 'activesupport', '>= 6', '< 8'
   spec.add_dependency 'cld'       # https://github.com/jtoy/cld
-  spec.add_dependency 'parallel'  # https://github.com/grosser/parallel
   spec.add_dependency 'zeitwerk'  # https://github.com/fxn/zeitwerk
 
   # For more information and examples about making a new gem, check out our
