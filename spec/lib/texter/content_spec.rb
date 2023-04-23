@@ -11,7 +11,34 @@ RSpec.describe Texter::Content do
       end
     end
 
-    describe 'sqashes whitespaces and sets lang' do
+    describe '#prepare' do
+      subject { described_class.new(text: text) }
+      describe 'squashes whitespaces' do
+        let(:text) { 'some  text, with   too:    much whitespaces' }
+
+        specify do
+          expect(subject.text).to eql 'some text with too much whitespaces'
+        end
+      end
+
+      describe 'squashes puntation together with whitspaces' do
+        let(:text) { 'some..text:, with . . too: . . . .  much whitespaces' }
+
+        specify do
+          expect(subject.text).to eql 'some text with too much whitespaces'
+        end
+      end
+
+      describe 'squashes TOC line like entry' do
+        let(:text) { '1 section  . . . . . . 123' }
+
+        specify do
+          expect(subject.text).to eql '1 section'
+        end
+      end
+    end
+
+    describe 'sets lang' do
       subject { described_class.new(text: text) }
 
       describe 'english' do

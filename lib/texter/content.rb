@@ -22,7 +22,10 @@ module Texter
     private
 
     def prepare(text)
-      text.gsub(/[[:blank:]]{2,}/, ' ').strip
+      text.gsub(/([[:blank:][:punct:]]){2,}(\d+)$/, ' ')
+          .gsub(/([[:blank:][:punct:]]){2,}/, ' ')
+          .gsub(/[[:blank:]]{2,}/, ' ')
+          .gsub(/([[:punct:]]){2,}/, ' ').strip
     end
 
     def detect_language
