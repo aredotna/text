@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'Basic Text processing.'
   spec.description = 'Basic Text processing to prepare a Text for further/other processing.
-                      Includes (atm) Language detectio, ...'
-  spec.homepage = 'https://example.com'
+                      Includes (atm) Language detection, ...'
+  spec.homepage = 'https://github.com/aredotna/texter'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.0'
 
